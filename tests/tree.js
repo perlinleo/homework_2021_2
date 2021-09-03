@@ -69,3 +69,21 @@ QUnit.module('Тестируем функцию tree', function() {
         assert.strictEqual(tree(-1.4), null);
     });
 });
+
+QUnit.module('Тестируем функцию padSpaces', function() {
+    QUnit.test('Желаемая длина должна быть больше изначальной', function(assert) {
+        assert.strictEqual(padSpaces('check', 2), null);
+    });
+
+    QUnit.test('Дополнение нечётной строки', function(assert) {
+        const expected =
+            '  *  ';
+        assert.strictEqual(padSpaces('*', 5), expected);
+    });
+    QUnit.test('Дополнение чётной строки', function(assert) {
+        const expected =
+            '  **  ';
+        assert.strictEqual(padSpaces('**', 6), expected);
+    });
+
+});
