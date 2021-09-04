@@ -1,6 +1,11 @@
 'use strict';
 
 const leafSymbol = '*';
+const outerSymbol = ' ';
+const foundationSymbol = '|';
+const layerEnd = '\n';
+const minHeight = 3;
+
 
 /**
  * Оборачивает строку в пробелы до необходимой длины
@@ -14,8 +19,8 @@ const padSpaces = (string, toWidth) => {
         return null;
     }
     const spacesAmount = (toWidth - string.length) / 2;
-    const spaces = ' '.repeat(spacesAmount);
-    return spaces + string + spaces;
+    const spaces = outerSymbol.repeat(spacesAmount);
+    return `${spaces}${string}${spaces}`;
 }
 
 /**
@@ -26,7 +31,7 @@ const padSpaces = (string, toWidth) => {
  */
 const tree = (num) => {
     const height = Number(num);
-    if (height < 3 || !Number.isInteger(height) || isNaN(height)) {
+    if (height < minHeight || !Number.isInteger(height) || isNaN(height)) {
         return null;
     }
 
@@ -38,7 +43,7 @@ const tree = (num) => {
         const core = leafSymbol.repeat(leavesAmount);
         result.push(padSpaces(core, maxWidth));
     }
-    result.push(padSpaces('|', maxWidth) + '\n');
+    result.push(`${padSpaces(foundationSymbol, maxWidth)}${layerEnd}`);
 
     return result.join('\n');
 }
