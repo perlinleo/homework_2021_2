@@ -41,9 +41,12 @@ const tree = (num) => {
 
     for (let leavesAmount = 1; leavesAmount <= maxWidth; leavesAmount += 2) {
         const core = leafSymbol.repeat(leavesAmount);
-        result.push(padSpaces(core, maxWidth));
+        const newLayer = padSpaces(core, maxWidth);
+        if (newLayer !== null) {
+            result.push(newLayer);
+        }
     }
     result.push(`${padSpaces(foundationSymbol, maxWidth)}${layerEnd}`);
 
-    return result.join('\n');
+    return result.join(layerEnd);
 }
