@@ -48,5 +48,6 @@ const tree = (num) => {
     }
     result.push(`${padSpaces(foundationSymbol, maxWidth)}${layerEnd}`);
 
+
     return result.join(layerEnd);
 }
