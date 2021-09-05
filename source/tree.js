@@ -8,22 +8,6 @@ const minHeight = 3;
 
 
 /**
- * Оборачивает строку в пробелы до необходимой длины
- * 
- * @param {String} string - Изначальная строка  
- * @param {Number} toWidth - Желаемая длина получаемой строки
- * @returns {String} - Строка, обернутая пробелами
- */
-const padSpaces = (string, toWidth) => {
-    if (toWidth < string.length) {
-        return null;
-    }
-    const spacesAmount = (toWidth - string.length) / 2;
-    const spaces = outerSymbol.repeat(spacesAmount);
-    return `${spaces}${string}${spaces}`;
-}
-
-/**
  * Возвращает строку с заданной высоты ёлкой
  *
  * @param {string|number} num - Высота
@@ -34,20 +18,18 @@ const tree = (num) => {
     if (height < minHeight || !Number.isInteger(height) || isNaN(height)) {
         return null;
     }
+    const sideLength = height - 2;
+    const result = Array.from(Array(height - 1).keys());
 
-    const result = [];
+    const newResult = result.map(x => {
+        const right = leafSymbol.repeat(x).padEnd(sideLength, outerSymbol);
+        const left = right.split('').reverse('').join('');
+        const layer = `${left}${leafSymbol}${right}`;
+        return layer;
+    })
 
-    const maxWidth = height * 2 - 3;
+    const lastLineSpaces = outerSymbol.repeat(sideLength);
+    newResult.push(`${lastLineSpaces}${foundationSymbol}${lastLineSpaces}${layerEnd}`);
 
-    for (let leavesAmount = 1; leavesAmount <= maxWidth; leavesAmount += 2) {
-        const core = leafSymbol.repeat(leavesAmount);
-        const newLayer = padSpaces(core, maxWidth);
-        if (newLayer !== null) {
-            result.push(newLayer);
-        }
-    }
-    result.push(`${padSpaces(foundationSymbol, maxWidth)}${layerEnd}`);
-
-
-    return result.join(layerEnd);
+    return newResult.join(layerEnd);
 }
