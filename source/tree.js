@@ -5,6 +5,7 @@ const outerSymbol = ' ';
 const foundationSymbol = '|';
 const layerEnd = '\n';
 const minHeight = 3;
+const sepString = '';
 
 
 /**
@@ -23,7 +24,7 @@ const tree = (num) => {
 
     const newResult = result.map(x => {
         const right = leafSymbol.repeat(x).padEnd(sideLength, outerSymbol);
-        const left = right.split('').reverse('').join('');
+        const left = right.split(sepString).reverse().join(sepString);
         const layer = `${left}${leafSymbol}${right}`;
         return layer;
     })
